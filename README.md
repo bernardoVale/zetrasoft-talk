@@ -1,8 +1,6 @@
-Python for DevOps Toolchain
+Configuration Management for Zetrasoft
 =======================
-
-Python language introduction for DevOps Engineers
-
+  
 To run this presentation execute:
 
 ```
