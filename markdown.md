@@ -50,7 +50,7 @@ useradd myapp
 
 yum -y install tomcat java8
 
-cp $APP.war $TOMCAT_HOME/webapp
+cp $APP.war $TOMCAT_HOME/webapps/
 
 systemctl restart tomcat
 
@@ -107,12 +107,33 @@ Minha jornada shell scripts depois python depois cfg. management
 
 - Nós
 - Recipe / Playbook
-- 
+- Resources / Tasks
 
 ???
 Nos = maquinas que receberão automações
 
 ---
+class: middle, center
+
+# Como este problema vem sendo resolvido?
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/puppet-client-server.jpg)
+
+???
+AGENT = Ruby program
+FACTER = Collects info about machine
+
+---
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/chef-client-server.png)
+
+---
+
 # Server/node Architecture - Pull based
 
 **Server**
@@ -122,6 +143,10 @@ Nos = maquinas que receberão automações
  - Mantem arquivado o estado atual de todos os nodes
 
 ???
+Puppet = 2004
+Chef = 2009
+Ansible = 2012
+
 CONS - Single point of failure
 PROS - Single pane of glass da sua infraestrutura
 
@@ -132,6 +157,12 @@ PROS - Single pane of glass da sua infraestrutura
   - Entra em contato com o server periodicamente para verificar se o estado desejado mudou
   - Aplica mudanças se for necessário
   - Reportar estado ao server
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/ansible-architecture.png)
 
 ---
 
@@ -502,3 +533,8 @@ https://blog.gruntwork.io/why-we-use-terraform-and-not-chef-puppet-ansible-salts
 # Mutable vs Immutable Infrastructure
 
 Configuration management tools such as Chef, Puppet, Ansible, and SaltStack typically default to a mutable infrastructure paradigm. For example, if you tell Chef to install a new version of OpenSSL, it’ll run the software update on your existing servers and the changes will happen in-place. Over time, as you apply more and more updates, each server builds up a unique history of changes. This often leads to a phenomenon known as configuration drift, where each server becomes slightly different than all the others, leading to subtle configuration bugs that are difficult to diagnose and nearly impossible to reproduce.
+
+https://www.theregister.co.uk/2013/03/18/servers_pets_or_cattle_cern/
+
+
+If you view a server (whether metal, virtualized, or containerized) as inherently something that can be destroyed and replaced at any time, then it’s a member of the herd. If, however, you view a server (or a pair of servers attempting to appear as a single unit) as indispensable, then it’s a pet.
