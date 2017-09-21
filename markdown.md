@@ -6,12 +6,20 @@ class: center, bottom
 ---
 # Os três grandes desafios
 
+1. Automação da aplicação
+
+???
+Tomcat, Java, Python, Ruby, 
+logging, 
+
+--
 
 1. Automação do runtime (virtual machine / container) de uma aplicação
 
 ???
-Como criar, modificar
-Mobilia da casa
+Como criar, remover, modificar esse runtime
+
+Memoria, CPU, Como criar a maquina em si
 
 --
 
@@ -20,6 +28,7 @@ Mobilia da casa
 ???
 Load balancers, DNS, CDN, VPC
 Montagem da casa
+
 
 
 ---
@@ -174,23 +183,46 @@ background-image: url(http://localhost:8000/images/ansible-architecture.png)
 
 **Node**
 
-- Recebe/Aplica mudanças de for necessário
+- Recebe/Aplica mudanças se for necessário
 
 ---
+class: middle, center
+
+# Mutable Infrastructure
+
+Deploy/Provision uma vez, estado modificado diversas vezes.
+
+???
+Mudar o estado de algo já existente
+
+--
 
 # Immutable Infrastructure
 
 Deploy/Provision uma vez, **nunca** mais mude o estado
 
+???
+Estado imutável, uma vez criado nunca mais alterado
+
+Introduzir o conceito de Pets x Cattle
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/pets-cattle.jpeg)
+
+---
+
+class: middle, center
+
+# Immutable Infrastructure
+
+Deterministicidade!
+
 --
 
-**Why???**
-
-- Deterministicidade!
-
---
-
-- Fácil de replicar!
+Fácil de replicar!
 
 
 ???
@@ -201,9 +233,45 @@ Reprovisione um novo componente se você precisar de mudar
 Velocidade = 
 
 Funciona na minha máquina, funciona em ambiente de teste, em produção falhou.
+
 Live patch que quebra ambientes.
 
 Bake (Packer / Chef/Ansible) / Deploy (Run new EC2/GCE)
+
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/packer.png)
+
+---
+
+# Packer Conceitos
+
+**Builder**
+
+Constroi infrastrutura utilizando um "Cloud" provider
+
+--
+
+**Provisioner**
+
+Provisiona a infraestrutura criada utilizando uma ferramenta de provisionament/cfg. management
+
+--
+
+**Post Processors**
+
+Ações que devem ser executadas após o provisionamento. 
+
+E.g: Docker Tag / Docker Push
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/shut-up-code.jpg)
 
 ---
 
@@ -538,3 +606,6 @@ https://www.theregister.co.uk/2013/03/18/servers_pets_or_cattle_cern/
 
 
 If you view a server (whether metal, virtualized, or containerized) as inherently something that can be destroyed and replaced at any time, then it’s a member of the herd. If, however, you view a server (or a pair of servers attempting to appear as a single unit) as indispensable, then it’s a pet.
+
+
+Measure http://devopsflowmetrics.org/
