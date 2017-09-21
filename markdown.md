@@ -4,13 +4,149 @@ class: center, bottom
 # Chef & Ansible
 
 ---
-# Desclaimer
+# Os três grandes desafios
+
+
+1. Automação do runtime (virtual machine / container) de uma aplicação
 
 ???
-1. We won't talk about objects because it's not a priority for this training.
-1. This is not Algorithm 101 - We're not gonna cover all python data types
+Como criar, modificar
+Mobilia da casa
+
+--
+
+1. Automação da infraestrutura de uma aplicação
+
+???
+Load balancers, DNS, CDN, VPC
+Montagem da casa
+
 
 ---
+
+# Automação do Runtime
+
+1. Infraestrutura base
+
+???
+Log rotate, users, Package managers (yum/apt)
+
+--
+
+1. Instalação da Infraestrutura da aplicação
+
+???
+Python, Java, Wildfy/Tomcat
+
+---
+
+**install.sh**
+
+```shell
+#!/bin/bash
+
+groupadd app
+useradd myapp
+
+yum -y install tomcat java8
+
+cp $APP.war $TOMCAT_HOME/webapp
+
+systemctl restart tomcat
+
+```
+
+--
+
+# Meu código é idempotente?
+
+---
+
+class: top, center
+
+# Rápido
+
+--
+
+# Confiável
+
+--
+
+# Repetível 
+--
+
+# Previsível
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/cfg_tools.png)
+
+???
+foo
+
+---
+class: top, middle
+
+# Conjunto de recursos que simplificam automação de infraestrutura.
+
+???
+Minha jornada shell scripts depois python depois cfg. management
+
+---
+
+# Chef snippet
+
+# Ansible snippet
+
+# Puppet snippet
+
+---
+# Conceitos Chaves
+
+- Nós
+- Recipe / Playbook
+- 
+
+???
+Nos = maquinas que receberão automações
+
+---
+# Server/node Architecture - Pull based
+
+**Server**
+
+ - Máquina detentora de todas as informações da sua infrastutura.
+ - Source of truth
+ - Mantem arquivado o estado atual de todos os nodes
+
+???
+CONS - Single point of failure
+PROS - Single pane of glass da sua infraestrutura
+
+--
+
+**Client**
+
+  - Entra em contato com o server periodicamente para verificar se o estado desejado mudou
+  - Aplica mudanças se for necessário
+  - Reportar estado ao server
+
+---
+
+# Server/Node - Push Based
+
+**Server/Controller**
+
+- Aplica mudanças nos nodes quando requisitado manualmente ou através de eventos (time, scm...)
+
+**Node**
+
+- Recebe/Aplica mudanças de for necessário
+
+---
+
 # Immutable Infrastructure
 
 Deploy/Provision uma vez, **nunca** mais mude o estado
@@ -143,40 +279,6 @@ Primeira ideia:
 ???
 knife-ec2 commands for chef
 Ansible cloud provider commands
-
----
-
-# Server/node Architecture - Pull based
-
-**Server**
-
- - Máquina detentora de todas as informações da sua infrastutura.
- - Source of truth
- - Mantem arquivado o estado atual de todos os nodes
-
-???
-CONS - Single point of failure
-PROS - Single pane of glass da sua infraestrutura
-
---
-
-**Client**
-
-  - Entra em contato com o server periodicamente para verificar se o estado desejado mudou
-  - Aplica mudanças se for necessário
-  - Reportar estado ao server
-
----
-
-# Server/Node - Push Based
-
-**Server/Controller**
-
-- Aplica mudanças nos nodes quando requisitado manualmente ou através de eventos (time, scm...)
-
-**Node**
-
-- Recebe/Aplica mudanças de for necessário
 
 ---
 
@@ -393,3 +495,10 @@ knife ssh "role:web_server"
 
 # Mantendo a Configuração de uma Aplicação
 
+Chef, Puppet, Ansible, and SaltStack are all “configuration management” tools, which means they are designed to install and manage software on existing servers. CloudFormation and Terraform are “orchestration tools”, which means they are designed to provision the servers themselves, leaving the job of configuring those servers to other tools. These two categories are not mutually exclusive, as most configuration management tools can do some degree of provisioning and most orchestration tools can do some degree of configuration management. But the focus on configuration management or orchestration means that some of the tools are going to be a better fit for certain types of tasks.
+
+https://blog.gruntwork.io/why-we-use-terraform-and-not-chef-puppet-ansible-saltstack-or-cloudformation-7989dad2865c
+
+# Mutable vs Immutable Infrastructure
+
+Configuration management tools such as Chef, Puppet, Ansible, and SaltStack typically default to a mutable infrastructure paradigm. For example, if you tell Chef to install a new version of OpenSSL, it’ll run the software update on your existing servers and the changes will happen in-place. Over time, as you apply more and more updates, each server builds up a unique history of changes. This often leads to a phenomenon known as configuration drift, where each server becomes slightly different than all the others, leading to subtle configuration bugs that are difficult to diagnose and nearly impossible to reproduce.
