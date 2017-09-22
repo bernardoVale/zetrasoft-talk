@@ -274,7 +274,38 @@ layout: false
 background-image: url(http://localhost:8000/images/shut-up-code.jpg)
 
 ---
+class: middle, center
 
+# Ok, construimos uma imagem. Como crio a maquina virtual?
+
+--
+
+# E quanto aos outros componentes? 
+
+# Security Groups, Load Balancers?
+
+--
+
+# Auto Scaling?
+
+---
+class: middle, center
+# Ansible / Chef 
+#  vs 
+#CloudFormation / Terraform
+
+---
+
+Ansible:
+
+```yml
+- ec2:
+    count: 10
+    image: ami-v1    
+    instance_type: t2.micro
+```
+
+---
 # Objetivo
 
 - Gerir/manter estado de configurações
