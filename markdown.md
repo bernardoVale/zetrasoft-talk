@@ -192,9 +192,6 @@ class: middle, center
 
 Deploy/Provision uma vez, estado modificado diversas vezes.
 
-???
-Mudar o estado de algo já existente
-
 --
 
 # Immutable Infrastructure
@@ -208,35 +205,48 @@ Introduzir o conceito de Pets x Cattle
 
 ---
 
-class: top, right, fit-image
-layout: false
-background-image: url(http://localhost:8000/images/pets-cattle.jpeg)
-
----
-
 class: middle, center
 
 # Immutable Infrastructure
 
 Deterministicidade!
 
+???
+Deterministico = facil de prever. Seu processo todo deveria ser assim
+
+IRFR (Infrastructure-Related Failure Rate)
+% of build/deployment failures related to infrastructure issues
+
 --
 
-Fácil de replicar!
+Fácil de replicar/recriar!
 
 
 ???
-Deterministico = facil de prever.
-
 Reprovisione um novo componente se você precisar de mudar
 
-Velocidade = 
+--
 
-Funciona na minha máquina, funciona em ambiente de teste, em produção falhou.
+Velocidade de correção
 
-Live patch que quebra ambientes.
+???
+Histórico de mudanças
 
-Bake (Packer / Chef/Ansible) / Deploy (Run new EC2/GCE)
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/pets-cattle.jpeg)
+
+---
+class: top, right, fit-image
+background-image: url(http://localhost:8000/images/one-does-ansible.jpg) 
+
+???
+
+Cfg. Management tools foram criados no paradigma "mutable"
+
+Criadas para instalar e gerenciar softwares em ambientes já existentes
 
 
 ---
@@ -257,7 +267,7 @@ Constroi infrastrutura utilizando um "Cloud" provider
 
 **Provisioner**
 
-Provisiona a infraestrutura criada utilizando uma ferramenta de provisionament/cfg. management
+Provisiona a infraestrutura criada utilizando uma ferramenta de provisionamento/cfg. management
 
 --
 
@@ -290,35 +300,59 @@ class: middle, center
 
 ---
 class: middle, center
-# Ansible / Chef 
+
+# Configuration Management Tools
 #  vs 
-#CloudFormation / Terraform
+# Orchestration tools
 
 ---
 
 Ansible:
 
 ```yml
-- ec2:
-    count: 10
-    image: ami-v1    
-    instance_type: t2.micro
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Provision new machine
+      ec2:
+        count: 1
+        image: ami-9b86fe8d
+        region: us-east-1
+        instance_type: t2.micro
+```
+
+Chef:
+
+```
+knife ec2 server create -r 'role[webserver]' -I ami-9b86fe8d -f t2.micro
 ```
 
 ---
-# Objetivo
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/logo_terraform.png)
 
-- Gerir/manter estado de configurações
+
+---
+class: middle, center
+
+# Demo Terraform
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/cloudformation.png)
+
+---
+
+# Sparkle && Troposphere
 
 ???
-Falar do twelve factor app
+https://github.com/cloudtools/troposphere/blob/master/examples/EC2InstanceSample.py
 
---
-- Automatizar processsos
-
-???
-Dev and Ops = Instalar aplicações
-
+https://github.com/sparkleformation/sparkle_formation/blob/develop/examples/allinone/cloudformation/ec2_example.rb
 ---
 
 # Evolução de Configuration Managements

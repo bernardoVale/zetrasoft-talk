@@ -1,0 +1,7 @@
+---
+# tasks file for deploy
+
+- name: Install latest tomcat version
+  yum:
+    name: tomcat
+    state: latest

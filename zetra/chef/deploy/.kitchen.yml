@@ -1,0 +1,33 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-7.2
+    driver_config:
+      image: centos/systemd
+      run_command: /usr/sbin/init
+      privileged: true
+      forward: 
+        - 8080:8080
+      provision_command:
+        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+        - systemctl enable sshd.service
+      privileged: true
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+      cap_add:
+        - SYS_PTRACE
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default
+    run_list:
+      - recipe[deploy::default]
+    attributes:
