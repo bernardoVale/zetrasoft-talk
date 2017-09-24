@@ -1,0 +1,7 @@
+- name: Install latest tomcat version
+  yum:
+    name: tomcat
+    state: latest
+
+- name: Enable tomcat service
+  service: name=tomcat state=started enabled=yes

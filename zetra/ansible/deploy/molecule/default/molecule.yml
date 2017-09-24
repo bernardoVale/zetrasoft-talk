@@ -8,6 +8,12 @@ lint:
 platforms:
   - name: instance
     image: centos:7
+    privileged: True
+    command: /usr/sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    capabilities:
+      - SYS_PTRACE
 provisioner:
   name: ansible
   lint:

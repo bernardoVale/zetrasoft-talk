@@ -1,0 +1,7 @@
+- name: Fetch Application WAR
+  get_url:
+    url: https://s3.amazonaws.com/ac-zetra-deploy/java-chef-test.war
+    dest: "{{tomcat_home}}/app.war"
+    mode: 0640
+  notify:
+    - restart tomcat

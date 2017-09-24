@@ -1,2 +1,3 @@
 ---
 # defaults file for deploy
+tomcat_home: /var/lib/tomcat/webapps
