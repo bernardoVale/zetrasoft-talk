@@ -4,9 +4,28 @@ class: center, bottom
 # Chef & Ansible
 
 ---
-# Os três grandes desafios
 
-1. Automação da aplicação
+# Motificação
+
+Introduzir ferramentas que auxiliam a resolver quatro grandes
+problemas nesse novo "universo" chamado DevOps
+
+--
+
+???
+Mundo de tecnologia é desesperador.
+
+- Duas horas da pra explicar como funciona ansible e chef
+
+  Será que será útil?
+
+- Duas horas **da** pra mostrar que ferramentas utilizar para cada problema
+
+---
+
+# Quatro grandes desafios
+
+1. Automação da aplicação / Infraestrutura da aplicação
 
 ???
 Tomcat, Java, Python, Ruby, 
@@ -29,11 +48,19 @@ Memoria, CPU, Como criar a maquina em si
 Load balancers, DNS, CDN, VPC
 Montagem da casa
 
+--
+
+1. Automação do processo das automações
+
+???
+Executo na minha máquina?
+Como as alterações vão parar na produção
+
 
 
 ---
 
-# Automação do Runtime
+# Automação do Aplicação / Infraestrutura da Aplicação
 
 1. Infraestrutura base
 
@@ -75,17 +102,26 @@ class: top, center
 
 # Rápido
 
+???
+DevOps é agilidade
 --
 
 # Confiável
 
+???
+Tem que funcionar sempre.
 --
 
 # Repetível 
+
+???
+Não pode falhar na segunda vez
 --
 
 # Previsível
 
+???
+Mudan
 ---
 
 class: top, right, fit-image
@@ -107,9 +143,24 @@ Minha jornada shell scripts depois python depois cfg. management
 
 # Chef snippet
 
+```ruby
+package 'tomcat' do
+  action :install
+end
+```
+
 # Ansible snippet
 
+```yml
+- yum: name=tomcat state=installed
+```
 # Puppet snippet
+
+```conf
+package { 'tomcat':
+  ensure => 'installed',
+}
+```
 
 ---
 # Conceitos Chaves
@@ -133,6 +184,7 @@ layout: false
 background-image: url(http://localhost:8000/images/puppet-client-server.jpg)
 
 ???
+Puppet = 2004
 AGENT = Ruby program
 FACTER = Collects info about machine
 
@@ -140,6 +192,10 @@ FACTER = Collects info about machine
 class: top, right, fit-image
 layout: false
 background-image: url(http://localhost:8000/images/chef-client-server.png)
+
+???
+
+Chef = 2009
 
 ---
 
@@ -152,8 +208,6 @@ background-image: url(http://localhost:8000/images/chef-client-server.png)
  - Mantem arquivado o estado atual de todos os nodes
 
 ???
-Puppet = 2004
-Chef = 2009
 Ansible = 2012
 
 CONS - Single point of failure
@@ -355,30 +409,49 @@ https://github.com/cloudtools/troposphere/blob/master/examples/EC2InstanceSample
 https://github.com/sparkleformation/sparkle_formation/blob/develop/examples/allinone/cloudformation/ec2_example.rb
 ---
 
-# Evolução de Configuration Managements
+### Develop
 
-Todas as máquinas registradas
+**Chef**: Kitchen + Docker/Vagrant/EC2
 
-Imperativo = Chef
-Declarativo = Ansible, Puppet
+--
 
+**Ansible**:  Molecule + Docker/Vagrant/EC2
+
+--
+
+### Test
+
+**Chef:** Kitchen + Inspec
+
+**Ansible:** Molecule + Testinfra
+
+--
+
+### Bake
+
+Packer
+
+--
+
+### Provision / Deploy
+
+CloudFormation (Troposphere / Sparkle) / Terraform
 
 ---
 
-# Imperativo x Declarativo
+# Como automatizo minhas automações?
 
-**Declarativo**
+---
 
-Descrever o que o programa deve fazer ao invés de como fazer!
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/rundeck.jpg)
 
-**Imperativo**
+---
 
-Escrever codigo, declarando explicitamente uma série de passos para resolver um problema.
-
-???
-Hibrido = salt, ansible
-Declarativo = Puppet
-Chef = imperativo
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/spinnaker.jpg)
 
 ---
 
@@ -417,45 +490,6 @@ uma infraestrutura simples e fácil de manter.
 
 --
 
-**Ansible**, **Salt**
-
-???
-
----
-
-Dois grandes desafios
-
-
-A infrastrutura dentro da máquina (Provisionadores)
-
-A infraestutura fora da maquina (Provides)
-
----
-
-Automatizar a criação das máquinas
-
-Primeira ideia:
-
-1. Crio as máquinas no meu provedor de nuvem utilizando chef/ansible
-2. Instalo meu provisionador na nova máquina e executo 
-3. Provisiono o ambiente
-
-???
-knife-ec2 commands for chef
-Ansible cloud provider commands
-
----
-
-# Configuration Management orientado a Patches
-
-Todas as máquinas possuem um desired state que é periodicamente checado.
-
---
-
-Em algum ponto, esse estado precisa ser modificado
-
-
----
 
 # Configuration Manangement Imutável
 
@@ -474,23 +508,6 @@ Docker
 Fast boot time!
 
 ---
-
-# Task Runners / Deployers
-
-Crontab?
-Rundeck
-Spinnaker
-
----
-
-# Cloud Provisioners
-
-CloudFormation
-Terraform
-
----
-
-# Masterless
 
 # Desenvolvimento
 
@@ -531,18 +548,6 @@ Suporta *unix e Windows
 
 ---
 
-# Abstração de distros
-
-**Ansible**
-
-Implementada pelo próprio time
-
-```yml
-
-```
-
----
-
 # Documentação
 
 **Ansible**
@@ -579,9 +584,7 @@ Git based
 
 ---
 
-# Dependency Management
-
-
+# Dependency Managemen
 
 **Ansible**
 
@@ -614,63 +617,3 @@ https://supermarket.chef.io/
 Chef possui bem mais opções por ter uma comunidade mais antiga.
 
 ---
-
-# Cenários
-
-Quero deployar uma nova versão da minha aplicação Java em um conjunto de hosts
-
----
-
-
-# Ansible
-
-Hosts definidos no `inventory` file.
-
-Execução de um playbook com rolling update
-
-`deploy.yml`:
-
-```yml
-- name: Deploy new version
-  hosts: webservers
-  serial:
-  - "10%"
-  - "20%"
-  - "100%"
-``` 
-
-```shell
-ansible-playbook deploy.yml -e VERSION=v1.1
-```
-
----
-
-# Chef
-
-Nodes possuem cookbook da aplicação na versão 1.0
-
-Utualização da versão via `knife`
-
-```shell
-knife ssh "role:web_server"
-```
-
----
-
-# Mantendo a Configuração de uma Aplicação
-
-Chef, Puppet, Ansible, and SaltStack are all “configuration management” tools, which means they are designed to install and manage software on existing servers. CloudFormation and Terraform are “orchestration tools”, which means they are designed to provision the servers themselves, leaving the job of configuring those servers to other tools. These two categories are not mutually exclusive, as most configuration management tools can do some degree of provisioning and most orchestration tools can do some degree of configuration management. But the focus on configuration management or orchestration means that some of the tools are going to be a better fit for certain types of tasks.
-
-https://blog.gruntwork.io/why-we-use-terraform-and-not-chef-puppet-ansible-saltstack-or-cloudformation-7989dad2865c
-
-# Mutable vs Immutable Infrastructure
-
-Configuration management tools such as Chef, Puppet, Ansible, and SaltStack typically default to a mutable infrastructure paradigm. For example, if you tell Chef to install a new version of OpenSSL, it’ll run the software update on your existing servers and the changes will happen in-place. Over time, as you apply more and more updates, each server builds up a unique history of changes. This often leads to a phenomenon known as configuration drift, where each server becomes slightly different than all the others, leading to subtle configuration bugs that are difficult to diagnose and nearly impossible to reproduce.
-
-https://www.theregister.co.uk/2013/03/18/servers_pets_or_cattle_cern/
-
-
-If you view a server (whether metal, virtualized, or containerized) as inherently something that can be destroyed and replaced at any time, then it’s a member of the herd. If, however, you view a server (or a pair of servers attempting to appear as a single unit) as indispensable, then it’s a pet.
-
-
-Measure http://devopsflowmetrics.org/

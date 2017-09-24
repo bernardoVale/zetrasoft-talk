@@ -6,6 +6,9 @@ driver:
 provisioner:
   name: chef_solo
 
+verifier:
+  name: inspec
+
 platforms:
   - name: centos-7.2
     driver_config:
@@ -30,4 +33,7 @@ suites:
   - name: default
     run_list:
       - recipe[deploy::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
     attributes:
