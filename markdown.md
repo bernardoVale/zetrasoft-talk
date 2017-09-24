@@ -1,11 +1,11 @@
-class: center, bottom
 
-
-# Chef & Ansible
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/intro.jpg)
 
 ---
 
-# Motificação
+# Motivação
 
 Introduzir ferramentas que auxiliam a resolver quatro grandes
 problemas nesse novo "universo" chamado DevOps
@@ -81,6 +81,16 @@ Versionamento da aplicação
 
 ---
 
+# Como esses problemas eram resolvidos?
+
+---
+
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/artesao.jpeg)
+
+---
+
 **install.sh**
 
 ```shell
@@ -97,9 +107,20 @@ systemctl restart tomcat
 
 ```
 
+???
+Quem nunca
+
 --
 
 # Meu código é idempotente?
+
+--
+
+# É previsível ?
+
+--
+
+# Funciona sempre ????
 
 ---
 
@@ -108,19 +129,15 @@ class: top, center
 # Rápido
 
 ???
+Devops = Entregar software com qualidade o mais rápido possível
+
 DevOps é agilidade
 --
 
 # Confiável
 
 ???
-Tem que funcionar sempre.
---
-
-# Repetível 
-
-???
-Não pode falhar na segunda vez
+Exemplo: Deploy da sexta-feira as 18h
 --
 
 # Previsível
@@ -285,7 +302,8 @@ Reprovisione um novo componente se você precisar de mudar
 Velocidade de correção
 
 ???
-Histórico de mudanças
+Histórico de mudanças = toda mudança uma imagem
+Rollback facil = so subir outra instancia
 
 ---
 
@@ -304,6 +322,9 @@ Cfg. Management tools foram criados no paradigma "mutable"
 Criadas para instalar e gerenciar softwares em ambientes já existentes
 
 
+---
+class: middle, center
+# 2 Automação do runtime de uma aplicação
 ---
 
 class: top, right, fit-image
@@ -352,6 +373,11 @@ class: middle, center
 --
 
 # Auto Scaling?
+
+---
+class: middle, center
+
+# 3 Automação da infraestrutura de uma aplicação
 
 ---
 class: middle, center
@@ -439,8 +465,9 @@ Packer
 CloudFormation (Troposphere / Sparkle) / Terraform
 
 ---
+class: middle, center
 
-# Como automatizo minhas automações?
+# 4 Automação do processo das automações
 
 ---
 
@@ -456,165 +483,6 @@ background-image: url(http://localhost:8000/images/spinnaker.jpg)
 
 ---
 
-# Qual ferramenta é melhor para minha equipe?
-
----
-
-# Quem sou eu?
-
----
-
-Sou apaixonado por escrever codigo eficiente, estruturado, fácil de entender.
-
---
-
-Não sou muito fã de modelos declarativos que implicam em abstrações de alto nível!
-
---
-
-Estou acostumado a ditar como as coisas devem acontecer com loops, condicionais, variáveis.
-
---
-
-**Chef**
-
----
-
-# Quem sou eu?
-
-Não sou fã de Ruby, manjo muito de bash/Perl/Python.
-
---
-
-Meu código não precisa ser um poema. Quero resolver os desafios da empresa que trabalho e ainda prover
-uma infraestrutura simples e fácil de manter.
-
---
-
-
-# Configuration Manangement Imutável
-
-Infraestrutura é imutável!
-
---
-
-- Qualquer mudança (patch) requer a reconstrução total da infraesturtura
-
---
-
-- Nova versão substitui a antiga
-
-???
-Docker
-Fast boot time!
-
----
-
-# Desenvolvimento
-
-**Chef**
-
-Seu time manja de Ruby? Vai ficar preso nessa linguagem (não que isso seja um problema).
-
---
-
-**Ansible**
-
-Qualquer um consegue enterpretar um `yaml`. 
-
-Precisa de fazer coisas mais complexas? Seu time manja `Python`? Você pode precisar.
-
-Modulos podem ser criados em qualquer linguagem capaz de fazer um output em `json`.
-
---
-
-Vale `bash`?
-
---
-
-Vale tudo
-
----
-# Multi OS Support
-
-**Ansible**
-
-Suporta *nix e Windows, porém o suporte Windows é recente
-
---
-
-**Chef**
-
-Suporta *unix e Windows
-
----
-
-# Documentação
-
-**Ansible**
-
-Por ser mais recente, ainda é mais limitada.
-
-**Chef**
-
-Documentação extremamente rica. 
-
----
-
-# Comunidade
-
-**Ansible**
-
-Um dos projetos mais movimentados do Github. 25.5mil stars no github.
-
-8433 perguntas no stackoverflow.
-
-**Chef**
-
-Comunidade menor
-
-5181 perguntas no stackoverflow.
-
----
-
-# Workflow
-
-**Ansible**
-
-Git based
-
----
-
-# Dependency Managemen
-
-**Ansible**
-
-`ansible-galaxy install -r requirements.yml`
-
---
-
-**Chef**
-
-Declaração de dependencias via `Berksfile`:
-
-```
-berks vendor
-```
-
-
----
-
-# Reusabilidade
-
-**Ansible**
-
-https://galaxy.ansible.com
-
-**Chef**
-
-https://supermarket.chef.io/
-
-???
-Chef possui bem mais opções por ter uma comunidade mais antiga.
-
----
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/thanks.png)
