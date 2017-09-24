@@ -12,6 +12,8 @@ platforms:
     command: /usr/sbin/init
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup
+    ports:
+      - 8081:8080
     capabilities:
       - SYS_PTRACE
 provisioner:

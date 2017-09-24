@@ -1,7 +1,18 @@
 - name: Fetch Application WAR
   get_url:
-    url: https://s3.amazonaws.com/ac-zetra-deploy/java-chef-test.war
-    dest: "{{tomcat_home}}/app.war"
+    url: "{{deploy.artifact.url}}/{{deploy.artifact.name}}"
+    dest: "{{deploy.tomcat.home}}/app.war"
+    owner: "{{deploy.tomcat.user}}"
+    group: "{{deploy.tomcat.group}}"
     mode: 0640
+    checksum: "sha256:{{artifact_checksum}}"
+  register: deployed_app
   notify:
     - restart tomcat
+
+- name: Clean old deployment
+  file:
+    path: "{{deploy.tomcat.home}}/app"
+    state: absent
+  when: deployed_app.changed
+  

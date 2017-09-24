@@ -10,8 +10,6 @@ class: center, bottom
 Introduzir ferramentas que auxiliam a resolver quatro grandes
 problemas nesse novo "universo" chamado DevOps
 
---
-
 ???
 Mundo de tecnologia é desesperador.
 
@@ -74,6 +72,13 @@ Log rotate, users, Package managers (yum/apt)
 ???
 Python, Java, Wildfy/Tomcat
 
+--
+
+1. Deploy da aplicação
+
+???
+Versionamento da aplicação
+
 ---
 
 **install.sh**
@@ -121,7 +126,8 @@ Não pode falhar na segunda vez
 # Previsível
 
 ???
-Mudan
+Deploy falha de staging pra produção
+
 ---
 
 class: top, right, fit-image
@@ -129,7 +135,7 @@ layout: false
 background-image: url(http://localhost:8000/images/cfg_tools.png)
 
 ???
-foo
+
 
 ---
 class: top, middle
@@ -137,6 +143,7 @@ class: top, middle
 # Conjunto de recursos que simplificam automação de infraestrutura.
 
 ???
+Scripts simplificados
 Minha jornada shell scripts depois python depois cfg. management
 
 ---
@@ -163,17 +170,6 @@ package { 'tomcat':
 ```
 
 ---
-# Conceitos Chaves
-
-- Nós
-- Recipe / Playbook
-- Resources / Tasks
-
-???
-Nos = maquinas que receberão automações
-
----
-class: middle, center
 
 # Como este problema vem sendo resolvido?
 
@@ -238,6 +234,11 @@ background-image: url(http://localhost:8000/images/ansible-architecture.png)
 **Node**
 
 - Recebe/Aplica mudanças se for necessário
+
+---
+class: top, right, fit-image
+layout: false
+background-image: url(http://localhost:8000/images/shut-up-code.jpg)
 
 ---
 class: middle, center

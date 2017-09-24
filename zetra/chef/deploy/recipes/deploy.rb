@@ -1,11 +1,18 @@
-remote_file "#{node['deploy']['tomcat']['home']}/app.war" do
-  source 'https://s3.amazonaws.com/ac-zetra-deploy/java-chef-test.war'
-  owner 'root'
-  group 'root'
+directory '/var/lib/tomcat/webapps/app' do
+  owner 'tomcat'
+  group 'tomcat'
   mode '0755'
-  action :create
-  notifies :restart, 'service[tomcat]', :delayed
+  action :nothing
+  recursive true
 end
 
-# docker run -it --cap-add SYS_PTRACE --rm -p 8080:8080 -v "$PWD:/code" bernardovale/pyubuntu
-
+remote_file "#{node['deploy']['tomcat']['home']}/app.war" do
+  source "#{node['deploy']['artifact']['url']}/#{node['deploy']['artifact']['name']}"
+  owner node['deploy']['tomcat']['user']
+  group node['deploy']['tomcat']['group']
+  mode '0640'
+  checksum node['artifact_checksum']
+  action :create
+  notifies :restart, 'service[tomcat]', :delayed
+  notifies :delete, 'directory[/var/lib/tomcat/webapps/app]', :immediately
+end

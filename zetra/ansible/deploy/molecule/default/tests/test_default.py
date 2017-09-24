@@ -18,9 +18,9 @@ def test_tomcat_running(host):
 
 
 def test_application_running():
-    r = requests.get("http://localhost:8080/app/chef/ping")
+    r = requests.get("http://localhost:8081/app/")
     assert r.status_code == 200
-    assert r.text == 'Hello Chef deployed war'
+    assert r.content == 'Hello ZetraSoft v1'
 
 
 def test_hosts_file(host):

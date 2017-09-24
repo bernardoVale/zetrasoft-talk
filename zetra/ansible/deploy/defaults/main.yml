@@ -1,3 +1,13 @@
 ---
 # defaults file for deploy
-tomcat_home: /var/lib/tomcat/webapps
+
+deploy:
+  tomcat:
+    home: /var/lib/tomcat/webapps
+    user: tomcat
+    group: tomcat
+  artifact:
+    url: https://s3.amazonaws.com/ac-zetra-deploy
+    name: zetra.war
+
+artifact_checksum: 0885628bfba9560288766852f26affb1bbb56ddc8c24ce0114f6d668d96e270d
