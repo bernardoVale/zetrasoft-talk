@@ -7,3 +7,4 @@ target
 build
 *.tfstate
 berks-cookbooks
+.terraform

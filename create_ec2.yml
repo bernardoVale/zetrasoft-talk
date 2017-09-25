@@ -1,0 +1,10 @@
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Provision new machine
+      ec2:
+        count: 1
+        image: ami-9b86fe8d
+        region: us-east-1
+        instance_type: t2.micro

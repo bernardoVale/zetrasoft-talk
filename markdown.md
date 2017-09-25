@@ -414,6 +414,12 @@ class: top, right, fit-image
 layout: false
 background-image: url(http://localhost:8000/images/logo_terraform.png)
 
+???
+Infrastructure as code
+
+Execution Plan
+
+Resource Graph
 
 ---
 class: middle, center
@@ -480,6 +486,26 @@ background-image: url(http://localhost:8000/images/rundeck.jpg)
 class: top, right, fit-image
 layout: false
 background-image: url(http://localhost:8000/images/spinnaker.jpg)
+
+---
+# Final Thoughts
+
+- Não comece automatizando os casos complicados
+
+???
+Comece com apps simples, monitoramento
+
+--
+
+- Não se esqueça de escrever testes 
+
+--
+
+- Não tente utilizar todas essas ferramentas de uma vez!
+
+???
+Start small. Iterate
+
 
 ---
 
