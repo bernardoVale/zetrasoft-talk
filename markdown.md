@@ -433,6 +433,7 @@ layout: false
 background-image: url(http://localhost:8000/images/cloudformation.png)
 
 ---
+class: middle, center
 
 # Sparkle && Troposphere
 
