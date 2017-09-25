@@ -40,9 +40,6 @@ platforms:
       cap_add:
         - SYS_PTRACE
 
-verifier:
-  name: inspec
-
 suites:
   - name: default
     run_list:

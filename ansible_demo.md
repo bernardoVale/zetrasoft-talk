@@ -5,13 +5,13 @@ startup:
 python2.7 -m virtualenv venv
 source venv/bin/activate
 pip install molecule
+pip install docker-py
+pip install ansible==2.3.2
 molecule init role -d docker --role-name deploy
 ```
 
 Setup requirements.txt
 ```
-pip install docker-py
-pip install ansible==2.3.2
 pip install requests
 ```
 Fix file molecule.yml
@@ -57,6 +57,8 @@ Write first test:
 def test_tomcat_installed(host):
     assert host.package("tomcat").is_installed
 ```
+
+run molecule verify
 
 Write ansible base.yml call it inside default.yml:
 
@@ -135,12 +137,19 @@ Write deploy.yml:
     group: "{{deploy.tomcat.group}}"
     mode: 0640
     checksum: "sha256:{{artifact_checksum}}"
+    
 ```
 
 Explain handlers:
 ```yml
 - name: restart tomcat
   service: name=tomcat state=restarted
+```
+
+add notify:
+```yml
+notify:
+  - restart tomcat
 ```
 
 molecule converge && molecule verify
